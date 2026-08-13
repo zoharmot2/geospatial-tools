@@ -2,6 +2,22 @@
 
 All notable changes to the Solid Angle & 3D Visibility Calculator are documented here.
 
+## [0.2.0-dev]
+
+### Added
+
+- Complete Simple Calculator user interface.
+- Dynamic geometry selector for Cone, Circular Target, Rectangle, and Sphere.
+- Angle-unit selection and cone half-angle/full-apex-angle input.
+- Length-unit selector for dimensional geometries.
+- Input validation with visible error messages.
+- Result cards for steradians, square degrees, percentage of full sphere, and percentage of hemisphere.
+- Equivalent circular-cone half-angle where applicable.
+- Numerical interpretation panel.
+- Geometry-specific assumptions and Show Formula panel.
+- Reset and Copy Result controls.
+- Simple Calculator QA checklist.
+
 ## [0.1.1-dev]
 
 ### Added
@@ -29,4 +45,3 @@ All notable changes to the Solid Angle & 3D Visibility Calculator are documented
 - Embed-mode detection using `?embed=1`.
 - Version constant and version display.
 - Modular JavaScript directory structure.
-- Placeholder modules for mathematical, spatial, map, 3D, input, UI, and state layers.

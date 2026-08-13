@@ -1,4 +1,6 @@
-const APP_VERSION = "0.1.1-dev";
+import { initializeSimpleCalculator } from "./ui/simple-ui.js";
+
+const APP_VERSION = "0.2.0-dev";
 
 function applyVersion() {
   const versionElement = document.getElementById("app-version");
@@ -47,6 +49,7 @@ function initializeApp() {
   applyVersion();
   applyEmbedMode();
   initializeModeTabs();
+  initializeSimpleCalculator();
 }
 
 initializeApp();

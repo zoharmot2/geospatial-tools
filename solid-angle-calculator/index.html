@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Calculate solid angles for geometric and spatial 3D configurations.">
   <title>Solid Angle &amp; 3D Visibility Calculator</title>
-  <link rel="stylesheet" href="./css/app.css?v=0.1.1-dev">
+  <link rel="stylesheet" href="./css/app.css?v=0.2.0-dev">
 </head>
 <body>
   <header class="app-header" data-standalone-only>
     <div class="app-shell">
       <p class="eyebrow">Geospatial Tools</p>
       <h1>Solid Angle &amp; 3D Visibility Calculator</h1>
-      <p class="subtitle">Scientific solid-angle calculations for standard geometry and spatial 3D targets.</p>
+      <p class="subtitle">
+        Scientific solid-angle calculations for standard geometry and spatial 3D targets.
+      </p>
     </div>
   </header>
 
@@ -29,36 +31,106 @@
     <section class="workspace">
       <section class="panel input-panel">
         <div class="mode-panel is-active" data-mode-panel="simple">
-          <h2>Simple Calculator</h2>
-          <p class="muted">Standard geometric solid-angle calculations will be implemented here.</p>
-
-          <div class="placeholder-box">
-            <strong>Milestone 2</strong>
-            <span>Cone, circular target, rectangle, and sphere.</span>
+          <div class="section-heading">
+            <div>
+              <h2>Simple Calculator</h2>
+              <p class="muted">Choose a standard geometry and enter its dimensions.</p>
+            </div>
           </div>
+
+          <form id="simple-form" novalidate>
+            <div class="field">
+              <label for="geometry-type">Geometry</label>
+              <select id="geometry-type" name="geometry">
+                <option value="cone">Cone</option>
+                <option value="disk">Circular Target</option>
+                <option value="rectangle">Rectangle</option>
+                <option value="sphere">Sphere</option>
+              </select>
+            </div>
+
+            <div id="geometry-fields"></div>
+
+            <div id="assumption-box" class="assumption-box" aria-live="polite"></div>
+
+            <div id="form-message" class="form-message" role="alert" hidden></div>
+
+            <div class="button-row">
+              <button class="button primary" type="submit">Calculate</button>
+              <button class="button secondary" id="reset-simple" type="button">Reset</button>
+            </div>
+          </form>
+
+          <details class="formula-panel" id="formula-panel">
+            <summary>Show Formula</summary>
+            <div id="formula-content" class="formula-content"></div>
+          </details>
         </div>
 
         <div class="mode-panel" data-mode-panel="spatial" hidden>
           <h2>Spatial / GIS Calculator</h2>
-          <p class="muted">Observer-based XYZ and WGS84 calculations will be implemented here.</p>
+          <p class="muted">Observer-based XYZ and WGS84 calculations will be implemented in the next milestones.</p>
 
           <div class="placeholder-box">
-            <strong>Milestones 4–8</strong>
-            <span>Observer, target vertices, GeoJSON, map, and 3D visualization.</span>
+            <strong>Next development stage</strong>
+            <span>Observer, target vertices, planarity, triangulation, GeoJSON, map, and 3D visualization.</span>
           </div>
         </div>
       </section>
 
       <aside class="panel result-panel" aria-live="polite">
-        <h2>Results</h2>
-        <div class="result-placeholder">
+        <div class="section-heading">
+          <div>
+            <h2>Results</h2>
+            <p class="muted compact">Solid-angle outputs and geometric interpretation.</p>
+          </div>
+          <button class="button tertiary small" id="copy-result" type="button" disabled>Copy Result</button>
+        </div>
+
+        <div id="result-empty" class="result-placeholder">
           <span class="result-symbol">Ω</span>
           <p>Enter valid geometry to calculate a solid angle.</p>
         </div>
 
+        <div id="result-content" hidden>
+          <div class="result-primary">
+            <span class="result-label">Solid Angle</span>
+            <strong id="result-sr">—</strong>
+            <span class="result-unit">steradians (sr)</span>
+          </div>
+
+          <div class="result-grid">
+            <div class="metric-card">
+              <span>Square Degrees</span>
+              <strong id="result-deg2">—</strong>
+              <small>deg²</small>
+            </div>
+            <div class="metric-card">
+              <span>Full Sphere</span>
+              <strong id="result-sphere-pct">—</strong>
+              <small>% of 4π sr</small>
+            </div>
+            <div class="metric-card">
+              <span>Hemisphere</span>
+              <strong id="result-hemi-pct">—</strong>
+              <small>% of 2π sr</small>
+            </div>
+            <div class="metric-card">
+              <span>Equivalent Cone</span>
+              <strong id="result-equivalent">—</strong>
+              <small id="result-equivalent-note">half-angle</small>
+            </div>
+          </div>
+
+          <div class="interpretation-card">
+            <h3>Interpretation</h3>
+            <p id="result-interpretation"></p>
+          </div>
+        </div>
+
         <div class="version-card">
           <span>Development version</span>
-          <strong id="app-version">0.1.1-dev</strong>
+          <strong id="app-version">0.2.0-dev</strong>
         </div>
       </aside>
     </section>
@@ -76,10 +148,10 @@
   <footer class="app-footer" data-standalone-only>
     <div class="app-shell">
       <span>Solid Angle &amp; 3D Visibility Calculator</span>
-      <span>Version <span data-version-text>0.1.1-dev</span></span>
+      <span>Version <span data-version-text>0.2.0-dev</span></span>
     </div>
   </footer>
 
-  <script type="module" src="./js/app.js?v=0.1.1-dev"></script>
+  <script type="module" src="./js/app.js?v=0.2.0-dev"></script>
 </body>
 </html>

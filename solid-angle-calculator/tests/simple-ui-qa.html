@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator QA</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 28px; line-height: 1.55; }
+    table { border-collapse: collapse; width: min(900px, 100%); }
+    th, td { border: 1px solid #ccc; padding: 8px 10px; text-align: left; }
+    code { background: #f2f3f4; padding: 2px 5px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Simple Calculator QA Checklist</h1>
+  <table>
+    <thead><tr><th>Case</th><th>Input</th><th>Expected result</th></tr></thead>
+    <tbody>
+      <tr><td>Cone</td><td>60° half-angle</td><td>π sr ≈ 3.141592654</td></tr>
+      <tr><td>Cone</td><td>180° full apex angle</td><td>2π sr ≈ 6.283185307</td></tr>
+      <tr><td>Circular Target</td><td>r=1, d=1</td><td>≈ 1.840302369 sr</td></tr>
+      <tr><td>Rectangle</td><td>w=2, h=2, d=1</td><td>2π/3 ≈ 2.094395102 sr</td></tr>
+      <tr><td>Sphere</td><td>r=1, d=2</td><td>≈ 0.841787214 sr</td></tr>
+      <tr><td>Sphere</td><td>r=1, d=1</td><td>2π sr</td></tr>
+      <tr><td>Sphere</td><td>r=1, d=0.5</td><td>4π sr</td></tr>
+    </tbody>
+  </table>
+  <p>Also verify <code>Reset</code>, <code>Copy Result</code>, <code>Show Formula</code>, mobile stacking, and <code>?embed=1</code>.</p>
+</body>
+</html>
