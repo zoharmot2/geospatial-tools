@@ -1,0 +1,8 @@
+{
+  "name": "solid-angle-calculator",
+  "version": "0.1.0-dev",
+  "private": true,
+  "type": "module",
+  "description": "Standalone Solid Angle & 3D Visibility Calculator",
+  "scripts": {}
+}

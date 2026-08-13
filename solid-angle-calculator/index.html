@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate solid angles for geometric and spatial 3D configurations.">
+  <title>Solid Angle &amp; 3D Visibility Calculator</title>
+  <link rel="stylesheet" href="./css/app.css?v=0.1.0-dev">
+</head>
+<body>
+  <header class="app-header" data-standalone-only>
+    <div class="app-shell">
+      <p class="eyebrow">Geospatial Tools</p>
+      <h1>Solid Angle &amp; 3D Visibility Calculator</h1>
+      <p class="subtitle">Scientific solid-angle calculations for standard geometry and spatial 3D targets.</p>
+    </div>
+  </header>
+
+  <main class="app-shell app-main">
+    <nav class="mode-tabs" aria-label="Calculator mode">
+      <button class="mode-tab is-active" type="button" data-mode-target="simple" aria-selected="true">
+        Simple Calculator
+      </button>
+      <button class="mode-tab" type="button" data-mode-target="spatial" aria-selected="false">
+        Spatial / GIS Calculator
+      </button>
+    </nav>
+
+    <section class="workspace">
+      <section class="panel input-panel">
+        <div class="mode-panel is-active" data-mode-panel="simple">
+          <h2>Simple Calculator</h2>
+          <p class="muted">Standard geometric solid-angle calculations will be implemented here.</p>
+
+          <div class="placeholder-box">
+            <strong>Milestone 2</strong>
+            <span>Cone, circular target, rectangle, and sphere.</span>
+          </div>
+        </div>
+
+        <div class="mode-panel" data-mode-panel="spatial" hidden>
+          <h2>Spatial / GIS Calculator</h2>
+          <p class="muted">Observer-based XYZ and WGS84 calculations will be implemented here.</p>
+
+          <div class="placeholder-box">
+            <strong>Milestones 4–8</strong>
+            <span>Observer, target vertices, GeoJSON, map, and 3D visualization.</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel result-panel" aria-live="polite">
+        <h2>Results</h2>
+        <div class="result-placeholder">
+          <span class="result-symbol">Ω</span>
+          <p>Enter valid geometry to calculate a solid angle.</p>
+        </div>
+
+        <div class="version-card">
+          <span>Development version</span>
+          <strong id="app-version">0.1.0-dev</strong>
+        </div>
+      </aside>
+    </section>
+
+    <section class="about-card">
+      <h2>About this tool</h2>
+      <p>
+        Version 1.0 will calculate the apparent angular extent of geometric or spatial targets
+        from an observer point. Terrain viewshed and external occlusion analysis are outside
+        the Version 1.0 scope.
+      </p>
+    </section>
+  </main>
+
+  <footer class="app-footer" data-standalone-only>
+    <div class="app-shell">
+      <span>Solid Angle &amp; 3D Visibility Calculator</span>
+      <span>Version <span data-version-text>0.1.0-dev</span></span>
+    </div>
+  </footer>
+
+  <script type="module" src="./js/app.js?v=0.1.0-dev"></script>
+</body>
+</html>
