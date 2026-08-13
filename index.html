@@ -3,24 +3,337 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A collection of standalone geospatial utilities for coordinate conversion, spatial geometry, and 3D visibility analysis.">
   <title>Geospatial Tools</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7f8;
+      --surface: #ffffff;
+      --surface-alt: #eef2f4;
+      --text: #172126;
+      --muted: #5e6b73;
+      --border: #d7dfe3;
+      --accent: #205f73;
+      --accent-hover: #174b5b;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(18, 42, 52, 0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    .hero {
+      padding: 72px 0 44px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 14px;
+      font-size: clamp(2.2rem, 6vw, 4.4rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-copy {
+      max-width: 780px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.7;
+    }
+
+    main {
+      padding: 44px 0 64px;
+    }
+
+    .section-heading {
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2 {
+      margin-bottom: 8px;
+      font-size: 1.35rem;
+    }
+
+    .section-heading p {
+      margin-bottom: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 330px;
+      padding: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .tool-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--surface-alt);
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .badge.stable {
+      color: var(--accent);
+    }
+
+    .tool-card h2 {
+      margin-bottom: 12px;
+      font-size: 1.55rem;
+      line-height: 1.2;
+    }
+
+    .tool-card p {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .feature-list {
+      margin: 6px 0 24px;
+      padding-left: 20px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .tool-actions {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 9px 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 750;
+    }
+
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .button.primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .about {
+      margin-top: 24px;
+      padding: 24px 26px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .about h2 {
+      margin-bottom: 8px;
+    }
+
+    .about p {
+      margin-bottom: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    footer .shell {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        padding-top: 48px;
+      }
+
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .shell {
+        width: min(100% - 20px, 1120px);
+      }
+
+      .tool-card,
+      .about {
+        padding: 20px;
+      }
+
+      footer .shell {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header class="hero">
+    <div class="shell">
+      <p class="eyebrow">Geospatial Toolbox</p>
+      <h1>Geospatial Tools</h1>
+      <p class="hero-copy">
+        A growing collection of standalone browser-based utilities for geospatial analysis,
+        coordinate transformation, spatial geometry, and related GIS workflows.
+      </p>
+    </div>
+  </header>
+
   <main>
-    <h1>Geospatial Tools</h1>
-    <p>A collection of standalone geospatial utilities.</p>
+    <div class="shell">
+      <section aria-labelledby="tools-heading">
+        <div class="section-heading">
+          <h2 id="tools-heading">Available tools</h2>
+          <p>Each application is self-contained and can be used independently.</p>
+        </div>
 
-    <section>
-      <h2>Coordinate Converter</h2>
-      <p>Convert coordinates between geographic and projected coordinate systems.</p>
-      <a href="./coordinate-converter/">Open Coordinate Converter</a>
-    </section>
+        <div class="tool-grid">
+          <article class="tool-card">
+            <div class="tool-meta">
+              <span class="badge stable">Stable</span>
+              <span class="badge">Version 2.4.1</span>
+            </div>
 
-    <section>
-      <h2>Solid Angle &amp; 3D Visibility Calculator</h2>
-      <p>Calculate solid angles for geometric and spatial 3D configurations.</p>
-      <p><strong>In development</strong></p>
-    </section>
+            <h2>Coordinate Converter</h2>
+            <p>
+              Convert individual coordinates or tabular datasets between geographic
+              and projected coordinate reference systems.
+            </p>
+
+            <ul class="feature-list">
+              <li>WGS84, ITM, ICS, UTM, Web Mercator, BNG, Lambert-93, and CRS search</li>
+              <li>CSV and Excel batch conversion</li>
+              <li>Interactive Leaflet map and map-based point selection</li>
+              <li>Reverse geocoding, shareable links, and iframe embed mode</li>
+            </ul>
+
+            <div class="tool-actions">
+              <a class="button primary" href="./coordinate-converter/">Open Coordinate Converter</a>
+            </div>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-meta">
+              <span class="badge stable">Stable</span>
+              <span class="badge">Version 1.0.0</span>
+            </div>
+
+            <h2>Solid Angle &amp; 3D Visibility Calculator</h2>
+            <p>
+              Calculate the solid angle subtended by standard geometric objects or
+              user-defined three-dimensional spatial targets from an observer point.
+            </p>
+
+            <ul class="feature-list">
+              <li>Simple geometry: cone, circular target, rectangle, and sphere</li>
+              <li>Cartesian XYZ and WGS84 geographic workflows</li>
+              <li>GeoJSON Polygon import and interactive geographic target definition</li>
+              <li>3D observer–target visualization, JSON export, shareable state, and embed mode</li>
+            </ul>
+
+            <div class="tool-actions">
+              <a class="button primary" href="./solid-angle-calculator/">Open Solid Angle Calculator</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="about">
+        <h2>About the toolbox</h2>
+        <p>
+          Geospatial Tools is organized as a single repository containing independent applications.
+          Each tool includes its own HTML, CSS, JavaScript, assets, libraries, documentation,
+          and runtime dependencies. Tools do not depend on shared application files and can therefore
+          be deployed, embedded, tested, or reused independently.
+        </p>
+      </section>
+    </div>
   </main>
+
+  <footer>
+    <div class="shell">
+      <span>Geospatial Tools</span>
+      <span>Standalone geospatial utilities</span>
+    </div>
+  </footer>
 </body>
 </html>
