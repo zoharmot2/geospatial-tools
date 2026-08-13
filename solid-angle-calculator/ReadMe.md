@@ -1,105 +1,201 @@
-# Solid Angle & 3D Visibility Calculator
+# Geospatial Tools
 
-**Stable release: v1.0.0**
+`geospatial-tools` is a collection of standalone browser-based utilities for geospatial analysis, coordinate transformation, spatial geometry, and related GIS workflows.
 
-A fully standalone scientific and geospatial browser tool within the `geospatial-tools` repository. It calculates the solid angle subtended by standard geometric objects or by a user-defined 3D target from an observer point.
+The repository is designed as a **toolbox repository** rather than a single application. Each tool is completely self-contained and can be used independently.
 
-## Modes
+## Available tools
 
-### Simple Calculator
+### 1. Coordinate Converter
 
-- Cone
-- Circular target / disk
-- Rectangle
-- Sphere
+**Current stable version: 2.4.1**
 
-### Spatial / GIS Calculator
+A browser-based GIS coordinate conversion application supporting individual and batch coordinate transformations.
 
-- Cartesian XYZ observer and target vertices
-- WGS84 longitude / latitude / ellipsoidal height
-- Arbitrary 3D triangles
-- Planar and approximately planar simple polygons
+Key capabilities include:
+
+- WGS84
+- Israel Transverse Mercator (ITM)
+- Israel Cassini-Soldner / ICS
+- UTM
+- Web Mercator
+- British National Grid
+- Lambert-93
+- CRS search
+- Coordinate validation
+- CSV / Excel batch conversion
+- XLSX export
+- Interactive Leaflet map
+- Map-based point selection
+- Reverse geocoding
+- Coordinates under cursor
+- Shareable links
+- Standalone and iframe/embed deployment
+
+Tool directory:
+
+```text
+coordinate-converter/
+```
+
+Application path:
+
+```text
+/coordinate-converter/
+```
+
+---
+
+### 2. Solid Angle & 3D Visibility Calculator
+
+**Current stable version: 1.0.0**
+
+A scientific and geospatial calculator for determining the solid angle subtended by geometric or spatial targets from an observer point.
+
+Key capabilities include:
+
+- Cone solid-angle calculation
+- Circular-target calculation
+- Rectangle calculation
+- Sphere calculation
+- Cartesian XYZ observer and target geometry
+- WGS84 longitude / latitude / height input
+- WGS84 geodetic → ECEF → local ENU conversion
+- Arbitrary 3D triangle targets
+- Planar and approximately planar polygons
+- Internal polygon validation and triangulation
 - GeoJSON Polygon import
-- Interactive geographic map
-- Interactive dependency-free 3D geometry visualization
-
-## Outputs
-
-- Steradians (sr)
-- Square degrees
-- Percentage of full sphere
-- Percentage of hemisphere
-- Equivalent circular-cone half-angle when applicable
-- Spatial diagnostics
+- Interactive geographic observer and target definition
+- Interactive 3D observer–target visualization
+- Steradian and square-degree output
+- Full-sphere and hemisphere percentages
+- Equivalent-cone calculation
+- Copy Result
 - JSON export
-- Shareable calculation URL
+- Shareable URL state
+- Standalone and iframe/embed deployment
 
-## Self-contained architecture
+Version 1.0 does **not** perform DEM-based viewshed analysis, terrain obstruction, building occlusion, or arbitrary 3D mesh analysis.
 
-The tool has no runtime dependency on any other application in `geospatial-tools`. Its HTML, CSS, JavaScript, assets, tests, and optional map library are contained inside `solid-angle-calculator/`.
+Tool directory:
 
-Leaflet 1.9.4 is vendored in `vendor/leaflet/` for deployed builds. If those distribution files are absent in a fresh development copy, run `vendor/leaflet/install-leaflet.cmd` once before map testing.
+```text
+solid-angle-calculator/
+```
 
-The 3D viewer is implemented with the browser Canvas API and therefore adds no additional runtime library dependency.
+Application path:
+
+```text
+/solid-angle-calculator/
+```
+
+---
+
+## Repository structure
+
+```text
+geospatial-tools/
+│
+├── index.html
+│
+├── coordinate-converter/
+│   ├── index.html
+│   ├── css/
+│   ├── js/
+│   ├── assets/
+│   └── ...
+│
+├── solid-angle-calculator/
+│   ├── index.html
+│   ├── css/
+│   ├── js/
+│   ├── assets/
+│   ├── vendor/
+│   ├── tests/
+│   └── ...
+│
+├── README.md
+├── LICENSE
+└── ...
+```
+
+## Architectural principle
+
+Each tool must remain **fully independent and self-contained**.
+
+Tools must not share runtime:
+
+- CSS
+- JavaScript
+- assets
+- third-party libraries
+- application configuration
+- calculation modules
+
+Visual consistency may be maintained across tools, but implementation files should remain inside each individual tool directory.
+
+The repository root is limited to toolbox-level resources such as:
+
+- landing page
+- repository documentation
+- license
+- repository configuration
 
 ## Local development
 
-From the `geospatial-tools` repository root:
+From the repository root:
 
 ```bash
 py -m http.server 8000
 ```
 
-Open:
+Then open:
+
+```text
+http://localhost:8000/
+```
+
+Coordinate Converter:
+
+```text
+http://localhost:8000/coordinate-converter/
+```
+
+Solid Angle & 3D Visibility Calculator:
 
 ```text
 http://localhost:8000/solid-angle-calculator/
 ```
 
-Embed mode:
+## Deployment
 
-```text
-http://localhost:8000/solid-angle-calculator/?embed=1
-```
+The repository is intended for static deployment using GitHub Pages.
 
-## QA
+The root `index.html` serves as the toolbox landing page. Each application is published from its own subdirectory.
 
-Core tests:
+Tools may also support iframe embedding in another website. When an individual tool implements embed mode, its calculation functionality remains independent of the root toolbox page.
 
-```text
-http://localhost:8000/solid-angle-calculator/tests/
-```
+## Versioning
 
-Spatial tests:
+Each tool is versioned independently.
 
-```text
-http://localhost:8000/solid-angle-calculator/tests/spatial.html
-```
+Current stable baselines:
 
-Combined release tests:
+| Tool | Stable version |
+|---|---:|
+| Coordinate Converter | 2.4.1 |
+| Solid Angle & 3D Visibility Calculator | 1.0.0 |
 
-```text
-http://localhost:8000/solid-angle-calculator/tests/release.html
-```
+A change to one tool does not require a version change to another tool.
 
-Or from the tool directory:
+## Development roadmap
 
-```bash
-node tests/run-release-node.mjs
-```
+Future geospatial utilities may be added to this repository as additional standalone subdirectories.
 
-## Scientific scope
+The guiding principle is:
 
-For WGS84 input, geographic coordinates are converted to ECEF and then to a local observer-centered ENU frame. General polygons are validated for planarity, projected to their representative plane for topology/triangulation, triangulated internally, and evaluated by summing signed triangle solid angles before converting the final result to magnitude.
+> One toolbox, multiple independent tools.
 
-## v1.0 limitations
+## License
 
-- no polygon holes;
-- no MultiPolygon;
-- no substantially non-planar polygon with more than three vertices;
-- no arbitrary CRS reprojection beyond Cartesian XYZ and WGS84 geographic input;
-- no DEM/viewshed analysis;
-- no external-object occlusion;
-- no atmospheric visibility model.
-
-The repository-level license governs this tool. Third-party notices are provided separately.
+See the repository `LICENSE` file.
