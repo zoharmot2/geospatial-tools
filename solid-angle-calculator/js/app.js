@@ -1,4 +1,4 @@
-const APP_VERSION = "0.1.0-dev";
+const APP_VERSION = "0.1.1-dev";
 
 function applyVersion() {
   const versionElement = document.getElementById("app-version");
