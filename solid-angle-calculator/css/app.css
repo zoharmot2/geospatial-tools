@@ -549,3 +549,24 @@ body.is-embed .app-main { padding-top: 16px; }
     height: 320px;
   }
 }
+
+
+/* v1.0 stable additions */
+.toolbox-link { display:inline-block; margin-bottom:18px; color:var(--accent); font-weight:650; text-decoration:none; }
+.toolbox-link:hover { text-decoration:underline; }
+.startup-message { margin:0 0 18px; }
+.result-heading { align-items:end; }
+.precision-field { margin:0; min-width:130px; }
+.precision-field select { min-height:34px; padding:6px 8px; font-size:.84rem; }
+.result-actions { display:flex; flex-wrap:wrap; gap:7px; margin:-8px 0 14px; }
+.action-status { margin:0 0 12px; padding:8px 10px; border-radius:8px; background:var(--surface-alt); color:var(--muted); font-size:.84rem; }
+.scene-panel { margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
+.scene-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px; }
+.scene-heading h3 { margin-bottom:3px; }
+.scene-heading .button-row { margin-top:0; }
+.scene-canvas { width:100%; height:360px; display:block; border:1px solid var(--border); border-radius:10px; background:#f7f9fa; touch-action:none; }
+.scene-canvas:focus-visible { outline:3px solid color-mix(in srgb, var(--focus) 28%, transparent); outline-offset:2px; }
+.about-card details { margin-top:14px; }
+.about-card summary { cursor:pointer; color:var(--accent); font-weight:700; }
+.about-card details p { margin-top:10px; }
+@media (max-width:560px) { .result-heading, .scene-heading { flex-direction:column; align-items:stretch; } .precision-field { width:100%; } .scene-canvas { height:300px; } }

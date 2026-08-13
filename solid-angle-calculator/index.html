@@ -3,244 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Calculate solid angles for geometric and spatial 3D configurations.">
+  <meta name="description" content="Calculate solid angles for standard geometry and observer-based 3D spatial targets.">
   <title>Solid Angle &amp; 3D Visibility Calculator</title>
-
   <link rel="stylesheet" href="./vendor/leaflet/leaflet.css?v=1.9.4">
-  <link rel="stylesheet" href="./css/app.css?v=0.6.0-dev">
+  <link rel="stylesheet" href="./css/app.css?v=1.0.0">
   <script src="./vendor/leaflet/leaflet.js?v=1.9.4"></script>
 </head>
 <body>
   <header class="app-header" data-standalone-only>
     <div class="app-shell">
+      <a class="toolbox-link" href="../">← Geospatial Tools</a>
       <p class="eyebrow">Geospatial Tools</p>
       <h1>Solid Angle &amp; 3D Visibility Calculator</h1>
-      <p class="subtitle">
-        Scientific solid-angle calculations for standard geometry and spatial 3D targets.
-      </p>
+      <p class="subtitle">Scientific solid-angle calculations for standard geometry and spatial 3D targets.</p>
     </div>
   </header>
 
   <main class="app-shell app-main">
+    <div id="startup-message" class="form-message startup-message" role="alert" hidden></div>
+
     <nav class="mode-tabs" aria-label="Calculator mode">
-      <button class="mode-tab is-active" type="button" data-mode-target="simple" aria-selected="true">
-        Simple Calculator
-      </button>
-      <button class="mode-tab" type="button" data-mode-target="spatial" aria-selected="false">
-        Spatial / GIS Calculator
-      </button>
+      <button class="mode-tab is-active" type="button" data-mode-target="simple" aria-selected="true">Simple Calculator</button>
+      <button class="mode-tab" type="button" data-mode-target="spatial" aria-selected="false">Spatial / GIS Calculator</button>
     </nav>
 
     <section class="workspace">
       <section class="panel input-panel">
         <div class="mode-panel is-active" data-mode-panel="simple">
-          <div class="section-heading">
-            <div>
-              <h2>Simple Calculator</h2>
-              <p class="muted">Choose a standard geometry and enter its dimensions.</p>
-            </div>
-          </div>
-
+          <div class="section-heading"><div><h2>Simple Calculator</h2><p class="muted">Choose a standard geometry and enter its dimensions.</p></div></div>
           <form id="simple-form" novalidate>
-            <div class="field">
-              <label for="geometry-type">Geometry</label>
-              <select id="geometry-type" name="geometry">
-                <option value="cone">Cone</option>
-                <option value="disk">Circular Target</option>
-                <option value="rectangle">Rectangle</option>
-                <option value="sphere">Sphere</option>
-              </select>
-            </div>
-
+            <div class="field"><label for="geometry-type">Geometry</label><select id="geometry-type"><option value="cone">Cone</option><option value="disk">Circular Target</option><option value="rectangle">Rectangle</option><option value="sphere">Sphere</option></select></div>
             <div id="geometry-fields"></div>
             <div id="assumption-box" class="assumption-box" aria-live="polite"></div>
             <div id="form-message" class="form-message" role="alert" hidden></div>
-
-            <div class="button-row">
-              <button class="button primary" type="submit">Calculate</button>
-              <button class="button secondary" id="reset-simple" type="button">Reset</button>
-            </div>
+            <div class="button-row"><button class="button primary" type="submit">Calculate</button><button class="button secondary" id="reset-simple" type="button">Reset</button></div>
           </form>
-
-          <details class="formula-panel" id="formula-panel">
-            <summary>Show Formula</summary>
-            <div id="formula-content" class="formula-content"></div>
-          </details>
+          <details class="formula-panel"><summary>Show Formula</summary><div id="formula-content" class="formula-content"></div></details>
         </div>
 
         <div class="mode-panel" data-mode-panel="spatial" hidden>
-          <div class="section-heading">
-            <div>
-              <h2>Spatial / GIS Calculator</h2>
-              <p class="muted">
-                Calculate the solid angle subtended by a 3D triangle or a planar polygon from an observer.
-              </p>
-            </div>
-          </div>
-
+          <div class="section-heading"><div><h2>Spatial / GIS Calculator</h2><p class="muted">Calculate the solid angle subtended by a 3D triangle or planar polygon from an observer.</p></div></div>
           <form id="spatial-form" novalidate>
-            <div class="field">
-              <label for="coordinate-mode">Coordinate system</label>
-              <select id="coordinate-mode">
-                <option value="cartesian">Cartesian XYZ</option>
-                <option value="geographic">Geographic WGS84</option>
-              </select>
-            </div>
-
-            <fieldset class="fieldset">
-              <legend>Observer</legend>
-              <div id="spatial-observer-fields"></div>
-            </fieldset>
-
-            <fieldset class="fieldset">
-              <legend>Target</legend>
-
-              <div class="field">
-                <label for="spatial-input-source">Input method</label>
-                <select id="spatial-input-source">
-                  <option value="manual">Manual vertices</option>
-                  <option value="geojson" disabled>Import GeoJSON</option>
-                  <option value="map" disabled>Draw / edit on map</option>
-                </select>
-              </div>
-
+            <div class="field"><label for="coordinate-mode">Coordinate system</label><select id="coordinate-mode"><option value="cartesian">Cartesian XYZ</option><option value="geographic">Geographic WGS84</option></select></div>
+            <fieldset class="fieldset"><legend>Observer</legend><div id="spatial-observer-fields"></div></fieldset>
+            <fieldset class="fieldset"><legend>Target</legend>
+              <div class="field"><label for="spatial-input-source">Input method</label><select id="spatial-input-source"><option value="manual">Manual vertices</option><option value="geojson" disabled>Import GeoJSON</option><option value="map" disabled>Draw / edit on map</option></select></div>
               <div id="geojson-panel" class="subpanel" hidden>
-                <div class="field">
-                  <label for="geojson-file">GeoJSON Polygon</label>
-                  <input id="geojson-file" type="file" accept=".geojson,.json,application/geo+json,application/json">
-                </div>
-                <div class="field">
-                  <label for="geojson-default-height">Default target height (m)</label>
-                  <input id="geojson-default-height" type="number" step="any" value="0">
-                  <span class="hint">Used only when the GeoJSON coordinates do not contain Z values.</span>
-                </div>
+                <div class="field"><label for="geojson-file">GeoJSON Polygon</label><input id="geojson-file" type="file" accept=".geojson,.json,application/geo+json,application/json"></div>
+                <div class="field"><label for="geojson-default-height">Default target height (m)</label><input id="geojson-default-height" type="number" step="any" value="0"><span class="hint">Used only when GeoJSON coordinates do not contain Z values.</span></div>
                 <button class="button secondary" id="import-geojson" type="button">Import GeoJSON</button>
               </div>
-
               <div id="map-panel" class="subpanel" hidden>
                 <div id="map-status" class="map-status" hidden></div>
-
-                <div class="map-toolbar">
-                  <button class="button secondary small" id="map-set-observer" type="button">Place Observer</button>
-                  <button class="button secondary small" id="map-draw-target" type="button">Draw Target</button>
-                  <button class="button secondary small" id="map-stop-drawing" type="button">Stop Drawing</button>
-                  <button class="button secondary small" id="map-fit" type="button">Fit to Data</button>
-                  <button class="button secondary small" id="map-clear" type="button">Clear Map Geometry</button>
-                </div>
-
-                <div class="field map-height-field">
-                  <label for="map-target-height">Height for new target vertices (m)</label>
-                  <input id="map-target-height" type="number" step="any" value="0">
-                </div>
-
+                <div class="map-toolbar"><button class="button secondary small" id="map-set-observer" type="button">Place Observer</button><button class="button secondary small" id="map-draw-target" type="button">Draw Target</button><button class="button secondary small" id="map-stop-drawing" type="button">Stop Drawing</button><button class="button secondary small" id="map-fit" type="button">Fit to Data</button><button class="button secondary small" id="map-clear" type="button">Clear Map Geometry</button></div>
+                <div class="field map-height-field"><label for="map-target-height">Height for new target vertices (m)</label><input id="map-target-height" type="number" step="any" value="0"></div>
                 <div id="spatial-map" class="spatial-map" aria-label="Geographic observer and target map"></div>
-
-                <p class="hint">
-                  Map coordinates are longitude/latitude. The target height is edited separately.
-                  Basemap tiles are requested from OpenStreetMap.
-                </p>
+                <p class="hint">Geometry processing is local. When displayed, basemap tiles are requested from OpenStreetMap.</p>
               </div>
-
-              <div class="vertex-table-wrap">
-                <table class="vertex-table">
-                  <thead id="vertex-table-head"></thead>
-                  <tbody id="vertex-table-body"></tbody>
-                </table>
-              </div>
-
-              <div class="button-row compact-row">
-                <button class="button secondary small" id="add-vertex" type="button">Add Vertex</button>
-                <button class="button secondary small" id="clear-vertices" type="button">Clear Vertices</button>
-              </div>
+              <div class="vertex-table-wrap"><table class="vertex-table"><thead id="vertex-table-head"></thead><tbody id="vertex-table-body"></tbody></table></div>
+              <div class="button-row compact-row"><button class="button secondary small" id="add-vertex" type="button">Add Vertex</button><button class="button secondary small" id="clear-vertices" type="button">Clear Vertices</button></div>
             </fieldset>
-
             <div id="spatial-message" class="form-message" role="alert" hidden></div>
             <div id="spatial-warnings" class="warning-box" hidden></div>
             <div id="spatial-diagnostics" class="diagnostic-box" hidden></div>
-
-            <div class="button-row">
-              <button class="button primary" type="submit">Calculate Solid Angle</button>
-              <button class="button secondary" id="reset-spatial" type="button">Reset</button>
-            </div>
+            <div class="button-row"><button class="button primary" type="submit">Calculate Solid Angle</button><button class="button secondary" id="reset-spatial" type="button">Reset</button></div>
           </form>
         </div>
       </section>
 
       <aside class="panel result-panel" aria-live="polite">
-        <div class="section-heading">
-          <div>
-            <h2>Results</h2>
-            <p class="muted compact">Solid-angle outputs and geometric interpretation.</p>
-          </div>
-          <button class="button tertiary small" id="copy-result" type="button" disabled>Copy Result</button>
-        </div>
-
-        <div id="result-empty" class="result-placeholder">
-          <span class="result-symbol">Ω</span>
-          <p>Enter valid geometry to calculate a solid angle.</p>
-        </div>
-
+        <div class="section-heading result-heading"><div><h2>Results</h2><p class="muted compact">Solid-angle outputs and interpretation.</p></div><div class="field precision-field"><label for="result-precision">Precision</label><select id="result-precision"><option value="3">3 decimals</option><option value="6" selected>6 decimals</option><option value="9">9 decimals</option><option value="12">12 decimals</option></select></div></div>
+        <div class="result-actions"><button class="button tertiary small" id="copy-result" type="button" disabled>Copy Result</button><button class="button tertiary small" id="export-result" type="button" disabled>Export JSON</button><button class="button tertiary small" id="share-result" type="button" disabled>Copy Share Link</button></div>
+        <p id="result-action-status" class="action-status" hidden></p>
+        <div id="result-empty" class="result-placeholder"><span class="result-symbol">Ω</span><p>Enter valid geometry to calculate a solid angle.</p></div>
         <div id="result-content" hidden>
-          <div class="result-primary">
-            <span class="result-label">Solid Angle</span>
-            <strong id="result-sr">—</strong>
-            <span class="result-unit">steradians (sr)</span>
-          </div>
-
-          <div class="result-grid">
-            <div class="metric-card">
-              <span>Square Degrees</span>
-              <strong id="result-deg2">—</strong>
-              <small>deg²</small>
-            </div>
-            <div class="metric-card">
-              <span>Full Sphere</span>
-              <strong id="result-sphere-pct">—</strong>
-              <small>% of 4π sr</small>
-            </div>
-            <div class="metric-card">
-              <span>Hemisphere</span>
-              <strong id="result-hemi-pct">—</strong>
-              <small>% of 2π sr</small>
-            </div>
-            <div class="metric-card">
-              <span>Equivalent Cone</span>
-              <strong id="result-equivalent">—</strong>
-              <small id="result-equivalent-note">half-angle</small>
-            </div>
-          </div>
-
-          <div class="interpretation-card">
-            <h3>Interpretation</h3>
-            <p id="result-interpretation"></p>
-          </div>
+          <div class="result-primary"><span class="result-label">Solid Angle</span><strong id="result-sr">—</strong><span class="result-unit">steradians (sr)</span></div>
+          <div class="result-grid"><div class="metric-card"><span>Square Degrees</span><strong id="result-deg2">—</strong><small>deg²</small></div><div class="metric-card"><span>Full Sphere</span><strong id="result-sphere-pct">—</strong><small>% of 4π sr</small></div><div class="metric-card"><span>Hemisphere</span><strong id="result-hemi-pct">—</strong><small>% of 2π sr</small></div><div class="metric-card"><span>Equivalent Cone</span><strong id="result-equivalent">—</strong><small id="result-equivalent-note">half-angle</small></div></div>
+          <div class="interpretation-card"><h3>Interpretation</h3><p id="result-interpretation"></p></div>
+          <section id="scene-3d-panel" class="scene-panel" hidden><div class="scene-heading"><div><h3>3D Geometry</h3><p id="scene-3d-status" class="hint">No spatial geometry loaded.</p></div><div class="button-row compact-row"><button class="button tertiary small" id="scene-reset" type="button">Reset View</button><button class="button tertiary small" id="scene-fit" type="button">Fit View</button></div></div><canvas id="scene-3d-canvas" class="scene-canvas" tabindex="0" aria-label="Interactive three-dimensional observer and target visualization"></canvas></section>
         </div>
-
-        <div class="version-card">
-          <span>Development version</span>
-          <strong id="app-version">0.6.0-dev</strong>
-        </div>
+        <div class="version-card"><span>Stable release</span><strong>v<span id="app-version">1.0.0</span></strong></div>
       </aside>
     </section>
 
     <section class="about-card">
-      <h2>About this tool</h2>
-      <p>
-        Spatial calculations use observer-relative three-dimensional geometry.
-        WGS84 geographic coordinates are converted to ECEF and then to a local ENU frame.
-        Version 1.0 supports arbitrary 3D triangles and planar or approximately planar simple polygons without holes.
-        Terrain viewshed and external occlusion analysis remain outside the Version 1.0 scope.
-      </p>
+      <h2>About &amp; Methods</h2>
+      <p>This tool calculates the solid angle subtended by standard geometric targets or by an observer-target configuration in three dimensions. WGS84 geographic coordinates are converted to ECEF and then to an observer-centered local ENU frame before calculation.</p>
+      <details><summary>Scientific scope and limitations</summary><p>Version 1.0 supports arbitrary 3D triangles and planar or approximately planar simple polygons without holes. “3D visibility” refers to geometric angular extent; terrain viewshed, external occlusion, atmospheric visibility, and DEM analysis are outside this release.</p></details>
+      <details><summary>Privacy and map use</summary><p>Calculations, coordinate transformations, GeoJSON parsing, and exports run in the browser. The application does not send calculation geometry to a computation server. When the optional geographic basemap is displayed, the browser requests map tiles from OpenStreetMap.</p></details>
     </section>
   </main>
 
-  <footer class="app-footer" data-standalone-only>
-    <div class="app-shell">
-      <span>Solid Angle &amp; 3D Visibility Calculator</span>
-      <span>Version <span data-version-text>0.6.0-dev</span></span>
-    </div>
-  </footer>
-
-  <script type="module" src="./js/app.js?v=0.6.0-dev"></script>
+  <footer class="app-footer" data-standalone-only><div class="app-shell"><span>Solid Angle &amp; 3D Visibility Calculator</span><span>Version <span data-version-text>1.0.0</span></span></div></footer>
+  <script type="module" src="./js/app.js?v=1.0.0"></script>
 </body>
 </html>

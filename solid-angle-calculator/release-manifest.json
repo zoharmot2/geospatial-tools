@@ -1,0 +1,243 @@
+{
+  "tool": "Solid Angle & 3D Visibility Calculator",
+  "version": "1.0.0",
+  "status": "stable-release-package",
+  "automated_tests": "39/39 passed",
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "54307bf7ce6c8730070ecec3743501fa73d3a5a587b2c58af92694b30d71160c",
+      "bytes": 1719
+    },
+    {
+      "path": "QA-REPORT-v1.0.0.md",
+      "sha256": "e00d024a4166c59692238c85a0a3352980523b2b4638aeadb3d0b2e9b9e2db96",
+      "bytes": 1936
+    },
+    {
+      "path": "README.md",
+      "sha256": "f42dd6fadbd6524587cecb4d3579ffdb719ac530e85f07208696fab7738ed68e",
+      "bytes": 2846
+    },
+    {
+      "path": "RELEASE-NOTES-v1.0.0.md",
+      "sha256": "7ea1680df7088f852a26414a29b7bc6e445833230f6c142c5d034d6f82e16073",
+      "bytes": 862
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "a0872fc1d1eceb1679a44ec6460d30817b38a86d4b078ba45762ce2a8c2657e5",
+      "bytes": 688
+    },
+    {
+      "path": "assets/README.md",
+      "sha256": "aa207122afb209341a34af2e14347b041accec4fc1ca22f9c1e02e467d57b0a5",
+      "bytes": 113
+    },
+    {
+      "path": "css/app.css",
+      "sha256": "7792dfe5dd6ce0f7fdbfdc8f85958a1e5b77f8b0bfe3a610f82bb3241f731c9a",
+      "bytes": 12192
+    },
+    {
+      "path": "index.html",
+      "sha256": "0d6521b256753448854823e36100636414bfa88cd2168da6f8d5c9d9077f2bdf",
+      "bytes": 10266
+    },
+    {
+      "path": "js/app.js",
+      "sha256": "5830c8ce427c45997966a5db4990fae7f6cf22c9bf09d7d3b2365bb6983a9bb8",
+      "bytes": 2723
+    },
+    {
+      "path": "js/core/simple-geometries.js",
+      "sha256": "a97ca5d85d9fb0e13afda6be6f1da1b380626f6e83a9f46935f8d62415f181c7",
+      "bytes": 2560
+    },
+    {
+      "path": "js/core/solid-angle.js",
+      "sha256": "e303113cb6d3e035d9008c6899fb838e53008dd3b81dc57b5e84518e4b11ae64",
+      "bytes": 2434
+    },
+    {
+      "path": "js/core/units.js",
+      "sha256": "a85824a9cddd785d36071ff85ecf4d90de902e07f3b7aeaf8f0857bdd5dbfe64",
+      "bytes": 2220
+    },
+    {
+      "path": "js/core/vector3.js",
+      "sha256": "47c8e16cdbc6e35ad07cc5607f3f4e37a2267a832622763f8e64a07ec431307a",
+      "bytes": 1834
+    },
+    {
+      "path": "js/input/geojson-import.js",
+      "sha256": "bd33484251ad23484c6de18d21fc07ee19097da42581cd6e5f7512330e86ba41",
+      "bytes": 3554
+    },
+    {
+      "path": "js/input/validation.js",
+      "sha256": "bdaa736ce70aa8bf0edcd906b29dc375b13d68f1685ea53756ff1c2a9c003c61",
+      "bytes": 168
+    },
+    {
+      "path": "js/input/vertex-table.js",
+      "sha256": "6a7b7041db68e816b0eac7c459e793457f3df8834579495cc7418adecae8999c",
+      "bytes": 3493
+    },
+    {
+      "path": "js/map/map.js",
+      "sha256": "766ea808ca87d4d7a090ccebf3084456c640e987ba7a7e0bd9b4a55c380f6453",
+      "bytes": 5600
+    },
+    {
+      "path": "js/scene/scene-3d.js",
+      "sha256": "31d6b6549f2edc1024f1aa91e1374dbbb2a189031a3ffce278514c956bddc50c",
+      "bytes": 8651
+    },
+    {
+      "path": "js/spatial/coordinate-utils.js",
+      "sha256": "139fd2b2eafe2953b658c96426e5a6e3242205747fffc649f98d2d0da23eb4f2",
+      "bytes": 2962
+    },
+    {
+      "path": "js/spatial/planarity.js",
+      "sha256": "90defbc3971640465121937582a5d6a6b94135c17cf8671d30d933e17a596f42",
+      "bytes": 3022
+    },
+    {
+      "path": "js/spatial/polygon.js",
+      "sha256": "155bff3160b5778f511e9d8785a6213aa8d3fbf7426ea9c7dd1346acf0460aff",
+      "bytes": 4171
+    },
+    {
+      "path": "js/spatial/spatial-calculator.js",
+      "sha256": "da7b98cbe559ab0c146e3605edcc3c7ee35fecae59b5a6c6d9693a80786a6fad",
+      "bytes": 5772
+    },
+    {
+      "path": "js/spatial/triangulation.js",
+      "sha256": "cbbe9e47861c7f46e0cbc8a28d5fa34b0656890a7c22c1607eaca69de05e4b55",
+      "bytes": 2571
+    },
+    {
+      "path": "js/state/export.js",
+      "sha256": "22063532fc24c534e9ab763c79d15040b44a8353f3c0d823c039f7868298cae8",
+      "bytes": 874
+    },
+    {
+      "path": "js/state/share-url.js",
+      "sha256": "bdb6c847a7c98ec371e313b5fd60864a8aa005c5ffa8bcb06eb24dd4766b8447",
+      "bytes": 162
+    },
+    {
+      "path": "js/state/state.js",
+      "sha256": "567302c2cee6a428c14a7af0f6e2d1bdb84efca4a745fccf18525595be947bee",
+      "bytes": 2051
+    },
+    {
+      "path": "js/ui/help-ui.js",
+      "sha256": "fbc38a5ec07643f45f9128e57236077995e3507ff98b850927c1f3b2886d9425",
+      "bytes": 171
+    },
+    {
+      "path": "js/ui/notifications.js",
+      "sha256": "6888000a0d207309e46010fcfcf2085730a528a6c2d73761fe82bda3fac067c5",
+      "bytes": 153
+    },
+    {
+      "path": "js/ui/results-ui.js",
+      "sha256": "b96dffa7d5b2b16b3b45632fa4fc4907a53d9b3e7d57b6335c752c548297d5ad",
+      "bytes": 6277
+    },
+    {
+      "path": "js/ui/simple-ui.js",
+      "sha256": "5b1db8d373315580f883b3326c091a17ee5f1dfc0f8dbbaeb33fe26ccea681de",
+      "bytes": 8663
+    },
+    {
+      "path": "js/ui/spatial-ui.js",
+      "sha256": "a5f570dd58c51c656b2752931c50a5e33c335f8621d2b464d2211887da960332",
+      "bytes": 11218
+    },
+    {
+      "path": "package.json",
+      "sha256": "881ff268125469a2c3f0ac9bede603ed3b9cc61b19e480e6266450fbb6724a04",
+      "bytes": 291
+    },
+    {
+      "path": "tests/README.md",
+      "sha256": "534358b17dc64200bd07e9e34fec3f13ca35be5541fd2cc7f4ef0d5642e685fd",
+      "bytes": 276
+    },
+    {
+      "path": "tests/assertions.js",
+      "sha256": "b85bc203f344cbeef56cab591054ef3075450a13c78c49c9042f4c363dc10b0e",
+      "bytes": 826
+    },
+    {
+      "path": "tests/core-tests.js",
+      "sha256": "a9edeac16116c658f245347edd6f3f68d1d7bcd7f6723e0ab3b50090413d3ffe",
+      "bytes": 7041
+    },
+    {
+      "path": "tests/index.html",
+      "sha256": "354350bc778ff0cc82a72efbe52f53c26a823722bc7a4f270bbc0c6c7d9506b4",
+      "bytes": 1862
+    },
+    {
+      "path": "tests/release.html",
+      "sha256": "784e5212354e81159ea509cf78a9dc4506a20ea299eabc81a1fe3ce7872a36a4",
+      "bytes": 1562
+    },
+    {
+      "path": "tests/run-release-node.mjs",
+      "sha256": "e6f97a130a8242ac45b24e6232c89eff19e331322e12a819be682d208d5d57fa",
+      "bytes": 598
+    },
+    {
+      "path": "tests/run-spatial-node.mjs",
+      "sha256": "dc4bb924f83f39719aad00e0a50ae42d8827a90882598d547a78f9b8572c4181",
+      "bytes": 397
+    },
+    {
+      "path": "tests/simple-ui-qa.html",
+      "sha256": "75b2647b420889ac43ee5afc77145b7a7d0e7d1b03077b33214924bdedc16317",
+      "bytes": 1380
+    },
+    {
+      "path": "tests/spatial-tests.js",
+      "sha256": "3f96bb80c88e3b71197b7679e1f17b8dbdbfb92e239399da331f18d3728c85d6",
+      "bytes": 5450
+    },
+    {
+      "path": "tests/spatial.html",
+      "sha256": "09e9fedb879fc8d69ebd069cea11217dd08a3828bd731476aba3f58be8871b8d",
+      "bytes": 1687
+    },
+    {
+      "path": "tests/state-tests.js",
+      "sha256": "7a54d19913900f716738aa7274c8f6e8fac8a47a0b513f995f92b47736ba5200",
+      "bytes": 1604
+    },
+    {
+      "path": "vendor/README.md",
+      "sha256": "12a33b6cfe86da35aef151d96c2e37c11aeaa86c041efc067fb96e9d715a0cd1",
+      "bytes": 300
+    },
+    {
+      "path": "vendor/leaflet/README.md",
+      "sha256": "7d6b8f952c198f6f0edc4e26b1498e46fc2b0324515ff8406a664324ede4e273",
+      "bytes": 707
+    },
+    {
+      "path": "vendor/leaflet/install-leaflet.cmd",
+      "sha256": "09d0a0424dd7c15e4bbbc0f3cbad63699b92049d179aa74f6b07160afb635a39",
+      "bytes": 95
+    },
+    {
+      "path": "vendor/leaflet/install-leaflet.ps1",
+      "sha256": "87fe029508b529ee6dbb46617cb5daf54e449f8ac70fc76b92f9f8970fd760b1",
+      "bytes": 1587
+    }
+  ]
+}

@@ -21,7 +21,7 @@
   <div id="results"></div>
 </main>
 <script type="module">
-  import { runSpatialTests } from "./spatial-tests.js?v=0.6.0-dev";
+  import { runSpatialTests } from "./spatial-tests.js?v=1.0.0";
   const results = await runSpatialTests();
   const passed = results.filter(r => r.passed).length;
   const failed = results.length - passed;
