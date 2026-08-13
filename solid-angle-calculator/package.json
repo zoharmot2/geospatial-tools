@@ -1,8 +1,10 @@
 {
   "name": "solid-angle-calculator",
-  "version": "0.2.0-dev",
+  "version": "0.6.0-dev",
   "private": true,
   "type": "module",
   "description": "Standalone Solid Angle & 3D Visibility Calculator",
-  "scripts": {}
+  "scripts": {
+    "test:spatial": "node tests/run-spatial-node.mjs"
+  }
 }

@@ -4,40 +4,48 @@ Standalone scientific and geospatial web calculator within the `geospatial-tools
 
 ## Development status
 
-Current development baseline: **0.2.0-dev**
+Current development baseline: **0.6.0-dev**
 
 ### Completed
 
 - Milestone 1 — standalone application scaffold.
 - Milestone 2 — mathematical core and reference tests.
 - Milestone 3 — complete Simple Calculator UI.
+- Milestone 4 — Cartesian XYZ spatial engine.
+- Milestone 5 — WGS84 geographic engine using geodetic → ECEF → local ENU.
+- Milestone 6 — GeoJSON Polygon import.
+- Milestone 7 — interactive geographic map integration.
 
-### Simple Calculator
+### Spatial / GIS functionality
 
-Supported geometries:
+Version 0.6.0-dev supports:
 
-- Cone
-- Circular Target
-- Rectangle
-- Sphere
+- Cartesian observer XYZ.
+- Geographic observer longitude / latitude / WGS84 ellipsoidal height.
+- Arbitrary 3D triangle targets.
+- Planar and approximately planar simple polygons.
+- Internal polygon planarity diagnostics.
+- Internal ear-clipping triangulation.
+- GeoJSON Polygon / Feature / single-Polygon FeatureCollection input.
+- Manual vertex editing and ordering.
+- Interactive geographic observer placement.
+- Interactive polygon drawing.
+- Draggable observer and target vertices.
+- Synchronization between map geometry and the vertex table.
 
-Outputs:
+### Leaflet
 
-- Steradians
-- Square degrees
-- Percentage of full sphere
-- Percentage of hemisphere
-- Equivalent circular-cone half-angle when applicable
+The tool is designed so that Leaflet is stored locally inside the tool directory rather than shared with other applications.
 
-The interface also includes assumptions, formula display, validation, Reset, and Copy Result.
+Before testing the map for the first time on Windows, run:
 
-### Next
+```text
+vendor/leaflet/install-leaflet.cmd
+```
 
-Milestone 4 — Cartesian Spatial / GIS engine.
+This downloads Leaflet 1.9.4 from the official GitHub release and vendors it into this tool.
 
-## Architecture
-
-This tool is fully self-contained and must not depend at runtime on files from other tools in the `geospatial-tools` repository.
+After installation, Leaflet itself is local. OpenStreetMap basemap tiles still require a network connection.
 
 ## Local development
 
@@ -53,16 +61,16 @@ Application:
 http://localhost:8000/solid-angle-calculator/
 ```
 
-Mathematical-core tests:
+Core mathematical tests:
 
 ```text
 http://localhost:8000/solid-angle-calculator/tests/
 ```
 
-Simple Calculator QA checklist:
+Spatial tests:
 
 ```text
-http://localhost:8000/solid-angle-calculator/tests/simple-ui-qa.html
+http://localhost:8000/solid-angle-calculator/tests/spatial.html
 ```
 
 Embed mode:
@@ -70,3 +78,11 @@ Embed mode:
 ```text
 http://localhost:8000/solid-angle-calculator/?embed=1
 ```
+
+## v1.0 limitations
+
+- No polygon holes.
+- No MultiPolygon.
+- No substantially non-planar polygon with more than three vertices.
+- No arbitrary CRS transformation beyond Cartesian XYZ and WGS84 geographic input.
+- No DEM/viewshed or external occlusion analysis.

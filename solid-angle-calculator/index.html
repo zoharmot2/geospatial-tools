@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Calculate solid angles for geometric and spatial 3D configurations.">
   <title>Solid Angle &amp; 3D Visibility Calculator</title>
-  <link rel="stylesheet" href="./css/app.css?v=0.2.0-dev">
+
+  <link rel="stylesheet" href="./vendor/leaflet/leaflet.css?v=1.9.4">
+  <link rel="stylesheet" href="./css/app.css?v=0.6.0-dev">
+  <script src="./vendor/leaflet/leaflet.js?v=1.9.4"></script>
 </head>
 <body>
   <header class="app-header" data-standalone-only>
@@ -50,9 +53,7 @@
             </div>
 
             <div id="geometry-fields"></div>
-
             <div id="assumption-box" class="assumption-box" aria-live="polite"></div>
-
             <div id="form-message" class="form-message" role="alert" hidden></div>
 
             <div class="button-row">
@@ -68,13 +69,100 @@
         </div>
 
         <div class="mode-panel" data-mode-panel="spatial" hidden>
-          <h2>Spatial / GIS Calculator</h2>
-          <p class="muted">Observer-based XYZ and WGS84 calculations will be implemented in the next milestones.</p>
-
-          <div class="placeholder-box">
-            <strong>Next development stage</strong>
-            <span>Observer, target vertices, planarity, triangulation, GeoJSON, map, and 3D visualization.</span>
+          <div class="section-heading">
+            <div>
+              <h2>Spatial / GIS Calculator</h2>
+              <p class="muted">
+                Calculate the solid angle subtended by a 3D triangle or a planar polygon from an observer.
+              </p>
+            </div>
           </div>
+
+          <form id="spatial-form" novalidate>
+            <div class="field">
+              <label for="coordinate-mode">Coordinate system</label>
+              <select id="coordinate-mode">
+                <option value="cartesian">Cartesian XYZ</option>
+                <option value="geographic">Geographic WGS84</option>
+              </select>
+            </div>
+
+            <fieldset class="fieldset">
+              <legend>Observer</legend>
+              <div id="spatial-observer-fields"></div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+              <legend>Target</legend>
+
+              <div class="field">
+                <label for="spatial-input-source">Input method</label>
+                <select id="spatial-input-source">
+                  <option value="manual">Manual vertices</option>
+                  <option value="geojson" disabled>Import GeoJSON</option>
+                  <option value="map" disabled>Draw / edit on map</option>
+                </select>
+              </div>
+
+              <div id="geojson-panel" class="subpanel" hidden>
+                <div class="field">
+                  <label for="geojson-file">GeoJSON Polygon</label>
+                  <input id="geojson-file" type="file" accept=".geojson,.json,application/geo+json,application/json">
+                </div>
+                <div class="field">
+                  <label for="geojson-default-height">Default target height (m)</label>
+                  <input id="geojson-default-height" type="number" step="any" value="0">
+                  <span class="hint">Used only when the GeoJSON coordinates do not contain Z values.</span>
+                </div>
+                <button class="button secondary" id="import-geojson" type="button">Import GeoJSON</button>
+              </div>
+
+              <div id="map-panel" class="subpanel" hidden>
+                <div id="map-status" class="map-status" hidden></div>
+
+                <div class="map-toolbar">
+                  <button class="button secondary small" id="map-set-observer" type="button">Place Observer</button>
+                  <button class="button secondary small" id="map-draw-target" type="button">Draw Target</button>
+                  <button class="button secondary small" id="map-stop-drawing" type="button">Stop Drawing</button>
+                  <button class="button secondary small" id="map-fit" type="button">Fit to Data</button>
+                  <button class="button secondary small" id="map-clear" type="button">Clear Map Geometry</button>
+                </div>
+
+                <div class="field map-height-field">
+                  <label for="map-target-height">Height for new target vertices (m)</label>
+                  <input id="map-target-height" type="number" step="any" value="0">
+                </div>
+
+                <div id="spatial-map" class="spatial-map" aria-label="Geographic observer and target map"></div>
+
+                <p class="hint">
+                  Map coordinates are longitude/latitude. The target height is edited separately.
+                  Basemap tiles are requested from OpenStreetMap.
+                </p>
+              </div>
+
+              <div class="vertex-table-wrap">
+                <table class="vertex-table">
+                  <thead id="vertex-table-head"></thead>
+                  <tbody id="vertex-table-body"></tbody>
+                </table>
+              </div>
+
+              <div class="button-row compact-row">
+                <button class="button secondary small" id="add-vertex" type="button">Add Vertex</button>
+                <button class="button secondary small" id="clear-vertices" type="button">Clear Vertices</button>
+              </div>
+            </fieldset>
+
+            <div id="spatial-message" class="form-message" role="alert" hidden></div>
+            <div id="spatial-warnings" class="warning-box" hidden></div>
+            <div id="spatial-diagnostics" class="diagnostic-box" hidden></div>
+
+            <div class="button-row">
+              <button class="button primary" type="submit">Calculate Solid Angle</button>
+              <button class="button secondary" id="reset-spatial" type="button">Reset</button>
+            </div>
+          </form>
         </div>
       </section>
 
@@ -130,7 +218,7 @@
 
         <div class="version-card">
           <span>Development version</span>
-          <strong id="app-version">0.2.0-dev</strong>
+          <strong id="app-version">0.6.0-dev</strong>
         </div>
       </aside>
     </section>
@@ -138,9 +226,10 @@
     <section class="about-card">
       <h2>About this tool</h2>
       <p>
-        Version 1.0 will calculate the apparent angular extent of geometric or spatial targets
-        from an observer point. Terrain viewshed and external occlusion analysis are outside
-        the Version 1.0 scope.
+        Spatial calculations use observer-relative three-dimensional geometry.
+        WGS84 geographic coordinates are converted to ECEF and then to a local ENU frame.
+        Version 1.0 supports arbitrary 3D triangles and planar or approximately planar simple polygons without holes.
+        Terrain viewshed and external occlusion analysis remain outside the Version 1.0 scope.
       </p>
     </section>
   </main>
@@ -148,10 +237,10 @@
   <footer class="app-footer" data-standalone-only>
     <div class="app-shell">
       <span>Solid Angle &amp; 3D Visibility Calculator</span>
-      <span>Version <span data-version-text>0.2.0-dev</span></span>
+      <span>Version <span data-version-text>0.6.0-dev</span></span>
     </div>
   </footer>
 
-  <script type="module" src="./js/app.js?v=0.2.0-dev"></script>
+  <script type="module" src="./js/app.js?v=0.6.0-dev"></script>
 </body>
 </html>

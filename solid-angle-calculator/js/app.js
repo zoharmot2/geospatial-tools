@@ -1,6 +1,7 @@
 import { initializeSimpleCalculator } from "./ui/simple-ui.js";
+import { initializeSpatialCalculator } from "./ui/spatial-ui.js";
 
-const APP_VERSION = "0.2.0-dev";
+const APP_VERSION = "0.6.0-dev";
 
 function applyVersion() {
   const versionElement = document.getElementById("app-version");
@@ -22,7 +23,7 @@ function applyEmbedMode() {
   });
 }
 
-function initializeModeTabs() {
+function initializeModeTabs(spatialController) {
   const tabs = [...document.querySelectorAll("[data-mode-target]")];
   const panels = [...document.querySelectorAll("[data-mode-panel]")];
 
@@ -38,6 +39,10 @@ function initializeModeTabs() {
       panel.classList.toggle("is-active", active);
       panel.hidden = !active;
     });
+
+    if (mode === "spatial") {
+      window.setTimeout(() => spatialController?.onModeActivated?.(), 0);
+    }
   };
 
   tabs.forEach((tab) => {
@@ -48,8 +53,9 @@ function initializeModeTabs() {
 function initializeApp() {
   applyVersion();
   applyEmbedMode();
-  initializeModeTabs();
   initializeSimpleCalculator();
+  const spatialController = initializeSpatialCalculator();
+  initializeModeTabs(spatialController);
 }
 
 initializeApp();
