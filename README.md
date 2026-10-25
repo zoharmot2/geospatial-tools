@@ -1,5 +1,7 @@
 # Geospatial Tools
 
+**Toolbox release: v1.0** — Stable baseline (2026-10-25).
+
 `geospatial-tools` is a collection of standalone browser-based utilities for geospatial analysis, coordinate transformation, spatial geometry, and related GIS workflows.
 
 The repository is designed as a **toolbox repository** rather than a single application. Each tool is completely self-contained and can be used independently.
@@ -177,6 +179,10 @@ Tools may also support iframe embedding in another website. When an individual t
 
 ## Versioning
 
+**Geospatial Tools (toolbox): v1.0** — stable, approved baseline as of 2026-10-25.
+
+Toolbox versioning describes the repository-wide collection, landing page, consistent navigation, and standalone / WordPress-embed experience. **It does not replace the independent versions of the applications.**
+
 Each tool is versioned independently.
 
 Current stable baselines:
@@ -187,6 +193,18 @@ Current stable baselines:
 | Solid Angle & 3D Visibility Calculator | 1.0.0 |
 
 A change to one tool does not require a version change to another tool.
+
+### Toolbox v1.0 — Release summary (2026-10-25)
+
+- Two independently deployable tools are available from the GitHub Pages landing page: Coordinate Converter and Solid Angle & 3D Visibility Calculator.
+- Consistent standalone headers and `← Geospatial Tools` return navigation are established across both applications.
+- The WordPress `?embed=1` experience hides standalone headers and shows a compact application name; users switch tools through the website Resources menu.
+- Coordinate Converter's header typography and alignment are standardized to match the Solid Angle design.
+- Coordinate Converter uses a pale-gray workspace in standalone mode and its original white/transparent workspace in embed mode.
+- The two-mode UI and independent-tool architecture are mandatory conventions for all future tools.
+
+**Release status:** documentation is prepared for the v1.0 repository release. Publish the GitHub tag/release separately; updating this README does not create a GitHub release or alter application version constants.
+
 
 ## Development roadmap
 
@@ -201,22 +219,76 @@ The guiding principle is:
 See the repository `LICENSE` file.
 
 
-## Navigation convention (mandatory for every tool)
+---
 
-The repository landing page (`/geospatial-tools/`) lists the tools. Every **standalone**
-tool page must display the same top-of-page `← Geospatial Tools` link pointing
-to the collection landing page (`../` from each tool directory).
+## Navigation, headers, and embedding — approved UI baseline (2026-10-25)
 
-When used inside the personal WordPress site, the tool URL must include
-`?embed=1`. In this mode the return link must be hidden, as users navigate
-between tools using the site's **Resources > Geospatial Tools** menu.
-Never navigate the parent WordPress page from within an embedded tool.
-Use the same convention in every future tool without shared runtime files:
-CSS, JS, libraries, and other dependencies stay within each tool directory.
-The Solid Angle calculator additionally hides its standalone header/footer in
-embed mode; the Coordinate Converter hides its return link while preserving its
-existing content and functionality.
+The following requirements are **binding for every existing and future tool**.
 
-Smoke checks for each release: open the tool standalone and verify that the
-return link reaches the collection landing page; open with `?embed=1` and
-verify the link is absent; check that inputs and calculations still work.
+### Standalone mode (GitHub Pages)
+
+- The repository root `index.html` is the Geospatial Tools landing page, linking to each tool.
+- Every tool displays a full header with these four elements, in this order:
+  1. `← Geospatial Tools` — links to the repository landing page (`../`).
+  2. `GEOSPATIAL TOOLS` — small eyebrow label.
+  3. The tool's full name — main heading.
+  4. A brief description of the tool.
+- Use the same typography, colors, hierarchy, spacing, and subtle bottom divider as the Solid Angle & 3D Visibility Calculator reference header.
+- **Do not center-align the header text.** The four elements are left-aligned with each other; the Coordinate Converter header's left edge aligns with the main content column, rather than a wider outer container.
+- Each tool retains its own calculations, controls, and independent assets.
+- The Coordinate Converter's standalone workspace uses a subtle light-gray background.
+
+### Embedded mode (WordPress iframe)
+
+- `?embed=1` enables the embedded presentation.
+- Hide the **entire standalone header**, including the back link, eyebrow, full heading, and description.
+- Show a **compact tool-name heading** above the application workspace, so the tool remains identifiable inside WordPress.
+- Navigation between tools happens through the WordPress menu:
+  `Resources → Geospatial Tools → [tool]`; do not route embedded users through the GitHub landing page.
+- The Coordinate Converter's embedded workspace keeps its **original white/transparent background**, not the light-gray standalone background.
+- The Solid Angle Calculator preserves its approved embedded workspace appearance.
+- Never compromise calculator functionality, forms, results, share links, or responsive behavior for these display rules.
+
+### Adding future tools
+
+Each new tool must:
+1. Live in its own independent subdirectory, including any required CSS, JS, assets and vendor dependencies.
+2. Be listed on the Geospatial Tools landing page and linked through the WordPress Resources menu.
+3. Implement both standalone and `?embed=1` header modes with the conventions above.
+4. Check navigation, typography, main-content alignment, backgrounds and functionality in **both** modes before release.
+5. Avoid shared runtime files or dependencies on another tool directory.
+
+### Accepted changes and verification history (2026-10-25)
+
+The following describes the user-approved outcome of the October navigation and layout work:
+
+| Area | Accepted outcome |
+|---|---|
+| Cross-tool navigation | Consistent standalone `← Geospatial Tools` return link |
+| Coordinate Converter standalone header | Mirrors the Solid Angle header's structure and type sizes; aligned to the converter's content left edge |
+| Standalone headers | Four-part header visible, with subtle divider |
+| WordPress embedding | Full standalone headers hidden; tool name displayed at top |
+| Coordinate Converter standalone workspace | Pale gray background |
+| Coordinate Converter embedded workspace | Original white/transparent background restored |
+| Solid Angle embedding | Approved appearance retained |
+| Future tools | Must apply this same two-mode navigation convention |
+
+This section records the **approved final decisions**, not every intermediate styling experiment. The user confirmed the final behavior was satisfactory on 2026-10-25. Runtime/browser regression testing is still advised whenever source files change.
+
+### Quick regression checklist
+
+- [ ] Root GitHub Pages landing page links to each tool.
+- [ ] Direct tool URL without `embed=1` shows the complete four-part header and working return link.
+- [ ] Coordinate Converter standalone header aligns with the main content column.
+- [ ] URL with `?embed=1` hides the complete standalone header, displays a compact tool title, and keeps the calculator visible.
+- [ ] Coordinate Converter embed background remains white/transparent; standalone workspace remains pale gray.
+- [ ] WordPress Resources menu moves between tool pages without nesting the main site in an iframe.
+- [ ] Desktop/mobile layouts, calculations, form input, results, exports and share links still work.
+
+### Commit message for this documentation update
+
+```text
+docs: finalize geospatial-tools v1.0 release documentation
+```
+
+The version numbers for individual tools in this README identify their independently tracked baselines. The toolbox itself is designated **v1.0**; appearance fixes and cache-busting parameters do not automatically change either version.
