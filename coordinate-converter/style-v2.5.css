@@ -349,12 +349,12 @@ progress{width:100%;height:18px}
 
 /* Collection header: standalone GitHub Pages only; WordPress owns embed navigation. */
 .converter-header{padding:44px 0 28px;background:#fff;border-bottom:1px solid #d7dfe3}
-.converter-header-shell{width:min(1180px,calc(100% - 32px));margin-inline:auto}
+.converter-header-shell{width:min(1180px,calc(100% - 32px));margin-inline:auto;text-align:center}
 .converter-header .toolbox-link{display:inline-block;margin-bottom:18px;color:#155e75;font-weight:650;text-decoration:none}
 .converter-header .toolbox-link:hover{text-decoration:underline}
 .converter-header .toolbox-link:focus-visible{outline:3px solid rgba(21,94,117,.35);outline-offset:3px}
 .converter-eyebrow{margin:0 0 8px;color:#155e75;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .converter-header h1{margin:0 0 10px;font-size:clamp(1.8rem,4vw,3rem);line-height:1.08;font-weight:700}
-.converter-subtitle{margin:0;max-width:760px;color:#4b5563;line-height:1.6}
+.converter-subtitle{margin:0 auto;max-width:760px;color:#4b5563;line-height:1.6}
 .is-embed .converter-header{display:none}
 @media(max-width:560px){.converter-header{padding-top:28px}.converter-header-shell{width:min(100% - 20px,1180px)}}
