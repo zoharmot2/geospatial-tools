@@ -7,7 +7,7 @@
   <meta name="description" content="Convert single coordinates or spreadsheet files between 32 supported global, continental and national coordinate reference systems.">
   <link rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="style-v2.5.css?v=2.5-nav1">
+  <link rel="stylesheet" href="style-v2.5.css?v=2.5-nav2">
   <script>
     // Standalone tools show their collection link; WordPress embeds use the site menu.
     if (new URLSearchParams(window.location.search).get("embed") === "1") {
@@ -16,17 +16,20 @@
   </script>
 </head>
 <body>
+  <header class="converter-header" data-standalone-only>
+    <div class="converter-header-shell">
+      <a class="toolbox-link" href="../">← Geospatial Tools</a>
+      <p class="converter-eyebrow">Geospatial Tools</p>
+      <h1 id="page-title">Coordinate Converter</h1>
+      <p class="converter-subtitle">
+        Convert a single coordinate or an Excel/CSV file using a searchable
+        local CRS catalog, including WGS 84, Israeli grids, UTM, Web Mercator,
+        British National Grid, Lambert-93 and 25 additional global and national systems.
+      </p>
+    </div>
+  </header>
   <main class="page">
-    <section class="converter" aria-labelledby="page-title">
-      <header>
-        <a class="toolbox-link" href="../">← Geospatial Tools</a>
-    	<h1 id="page-title">Coordinate Converter</h1>
-        <p>
-          Convert a single coordinate or an Excel/CSV file using a searchable
-          local CRS catalog, including WGS 84, Israeli grids, UTM, Web Mercator,
-          British National Grid, Lambert-93 and 25 additional global and national systems.
-        </p>
-      </header>
+    <section class="converter" aria-label="Coordinate Converter workspace">
 
       <section class="tool-introduction" aria-labelledby="how-to-use-title">
         <p>
