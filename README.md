@@ -199,3 +199,24 @@ The guiding principle is:
 ## License
 
 See the repository `LICENSE` file.
+
+
+## Navigation convention (mandatory for every tool)
+
+The repository landing page (`/geospatial-tools/`) lists the tools. Every **standalone**
+tool page must display the same top-of-page `← Geospatial Tools` link pointing
+to the collection landing page (`../` from each tool directory).
+
+When used inside the personal WordPress site, the tool URL must include
+`?embed=1`. In this mode the return link must be hidden, as users navigate
+between tools using the site's **Resources > Geospatial Tools** menu.
+Never navigate the parent WordPress page from within an embedded tool.
+Use the same convention in every future tool without shared runtime files:
+CSS, JS, libraries, and other dependencies stay within each tool directory.
+The Solid Angle calculator additionally hides its standalone header/footer in
+embed mode; the Coordinate Converter hides its return link while preserving its
+existing content and functionality.
+
+Smoke checks for each release: open the tool standalone and verify that the
+return link reaches the collection landing page; open with `?embed=1` and
+verify the link is absent; check that inputs and calculations still work.

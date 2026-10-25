@@ -7,12 +7,19 @@
   <meta name="description" content="Convert single coordinates or spreadsheet files between 32 supported global, continental and national coordinate reference systems.">
   <link rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="style-v2.5.css">
+  <link rel="stylesheet" href="style-v2.5.css?v=2.5-nav1">
+  <script>
+    // Standalone tools show their collection link; WordPress embeds use the site menu.
+    if (new URLSearchParams(window.location.search).get("embed") === "1") {
+      document.documentElement.classList.add("is-embed");
+    }
+  </script>
 </head>
 <body>
   <main class="page">
     <section class="converter" aria-labelledby="page-title">
       <header>
+        <a class="toolbox-link" href="../">← Geospatial Tools</a>
     	<h1 id="page-title">Coordinate Converter</h1>
         <p>
           Convert a single coordinate or an Excel/CSV file using a searchable

@@ -346,3 +346,9 @@ progress{width:100%;height:18px}
 .documentation-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px;margin:20px 0}.documentation-facts div{padding:10px 0;border-bottom:1px solid #e5e7eb}.documentation-facts dt{font-weight:700}.documentation-facts dd{margin:4px 0 0;color:#4b5563}
 .documentation-details section{margin-top:20px}.documentation-details h3{margin-bottom:5px}
 @media(max-width:760px){.documentation-toolbar,.documentation-layout,.documentation-facts{grid-template-columns:1fr}.documentation-list{max-height:320px}.documentation-heading{display:block}.documentation-heading button{margin-top:12px}}
+
+/* Collection navigation: shown in standalone mode, hidden in WordPress embeds. */
+.toolbox-link{display:inline-block;margin-bottom:18px;color:#155e75;font-weight:650;text-decoration:none}
+.toolbox-link:hover{text-decoration:underline}
+.toolbox-link:focus-visible{outline:3px solid rgba(21,94,117,.35);outline-offset:3px}
+.is-embed .toolbox-link{display:none}
