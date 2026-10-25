@@ -360,5 +360,10 @@ progress{width:100%;height:18px}
 .is-embed .converter-header{display:none}
 @media(max-width:560px){.converter-header{padding-top:28px}.converter-header-shell{width:min(960px,100%);padding-inline:18px}}
 
-/* Standalone workspace follows the Solid Angle light-gray canvas; preserve embed styling until its own QA. */
-html:not(.is-embed) .page{background:#f5f7f8}
+/* Consistent workspace canvas in standalone and WordPress embed modes. */
+.page{background:#f5f7f8}
+
+/* Title visible only inside WordPress embed mode. */
+.embed-tool-title{display:none}
+html.is-embed .embed-tool-title{display:block;width:min(960px,100%);margin:0 auto 12px;padding:0 28px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(1.5rem,3vw,2rem);line-height:1.2;font-weight:700;color:#172126}
+@media(max-width:700px){html.is-embed .embed-tool-title{padding:0 18px}}

@@ -6,7 +6,7 @@
   <meta name="description" content="Calculate solid angles for standard geometry and observer-based 3D spatial targets.">
   <title>Solid Angle &amp; 3D Visibility Calculator</title>
   <link rel="stylesheet" href="./vendor/leaflet/leaflet.css?v=1.9.4">
-  <link rel="stylesheet" href="./css/app.css?v=1.0.0">
+  <link rel="stylesheet" href="./css/app.css?v=1.0.1-embedtitle1">
   <script src="./vendor/leaflet/leaflet.js?v=1.9.4"></script>
 </head>
 <body>
@@ -20,6 +20,7 @@
   </header>
 
   <main class="app-shell app-main">
+    <h1 class="embed-tool-title">Solid Angle &amp; 3D Visibility Calculator</h1>
     <div id="startup-message" class="form-message startup-message" role="alert" hidden></div>
 
     <nav class="mode-tabs" aria-label="Calculator mode">
@@ -82,7 +83,7 @@
           <div class="interpretation-card"><h3>Interpretation</h3><p id="result-interpretation"></p></div>
           <section id="scene-3d-panel" class="scene-panel" hidden><div class="scene-heading"><div><h3>3D Geometry</h3><p id="scene-3d-status" class="hint">No spatial geometry loaded.</p></div><div class="button-row compact-row"><button class="button tertiary small" id="scene-reset" type="button">Reset View</button><button class="button tertiary small" id="scene-fit" type="button">Fit View</button></div></div><canvas id="scene-3d-canvas" class="scene-canvas" tabindex="0" aria-label="Interactive three-dimensional observer and target visualization"></canvas></section>
         </div>
-        <div class="version-card"><span>Stable release</span><strong>v<span id="app-version">1.0.0</span></strong></div>
+        <div class="version-card"><span>Stable release</span><strong>v<span id="app-version">1.0.1</span></strong></div>
       </aside>
     </section>
 
@@ -94,7 +95,7 @@
     </section>
   </main>
 
-  <footer class="app-footer" data-standalone-only><div class="app-shell"><span>Solid Angle &amp; 3D Visibility Calculator</span><span>Version <span data-version-text>1.0.0</span></span></div></footer>
-  <script type="module" src="./js/app.js?v=1.0.0"></script>
+  <footer class="app-footer" data-standalone-only><div class="app-shell"><span>Solid Angle &amp; 3D Visibility Calculator</span><span>Version <span data-version-text>1.0.1</span></span></div></footer>
+  <script type="module" src="./js/app.js?v=1.0.1"></script>
 </body>
 </html>
